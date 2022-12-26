@@ -39,7 +39,7 @@ function createMainWindow() {
         icon: path.join(page_dir, "assets/icon.jpg"),
         resizable: false,
     });
-    mainWin.setMenu(null);
+    //mainWin.setMenu(null);
     mainWin.loadFile(path.join(page_dir, "pages/main/index.html"));
     // mainWin.webContents.openDevTools()
     autoUpdater.checkForUpdates();
