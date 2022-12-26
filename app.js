@@ -6,10 +6,11 @@ const { app, BrowserWindow, ipcMain, Tray, Menu } = electron;
 const store = require("./store");
 const { autoUpdater } = require("electron-updater");
 const twitch = require("twitch-m3u8");
+const config = require("./config.json");
 
 const page_dir = path.join(__dirname, "/src/");
-const clientId = "m65puodpp4i8bvfrb27k1mrxr84e3z"; // 공개돼도 되는 값.
-const redirectUri = "http://localhost/";
+const clientId = config["CLIENT_ID"];
+const redirectUri = config["REDIRECT_URI"];
 const authProvider = new ElectronAuthProvider({
     clientId,
     redirectUri,
@@ -18,7 +19,6 @@ const apiClient = new ApiClient({ authProvider });
 
 const lock = app.requestSingleInstanceLock();
 
-const channel_name = ["viichan6", "gosegugosegu", "cotton__123", "lilpaaaaaa", "jingburger", "vo_ine"];
 let mainWin;
 let tray;
 let backWin;
@@ -36,7 +36,7 @@ function createMainWindow() {
             nodeIntegration: true,
             backgroundColor: "#0e0e10",
         },
-        icon: path.join(page_dir, "assets/icon.jpg"),
+        icon: path.join(page_dir, "assets/icon.png"),
         resizable: false,
     });
     //mainWin.setMenu(null);
@@ -110,12 +110,12 @@ if(!lock){
 app.on("ready", async () => {
     createMainWindow();
     createBackground();
-    trayIcon = (process.platform === "darwin")?"assets/icon2.png":"assets/icon.jpg";
+    trayIcon = (process.platform === "darwin")?"assets/icon2.png":"assets/icon.png";
     tray = new Tray(path.join(page_dir, trayIcon));
     const contextMenu = Menu.buildFromTemplate([
         { label: "Exit", type: "normal", role: "quit" },
     ]);
-    tray.setToolTip("이세계 아이돌 트위치 방송 PIP");
+    tray.setToolTip(config["TOOLTIP_NAME"]);
     tray.setContextMenu(contextMenu);
 
     tray.on("click", () => {
@@ -124,7 +124,7 @@ app.on("ready", async () => {
 
     //store.store.delete("order");
     if (!store.store.get("order")){
-        store.store.set("order", channel_name);
+        store.store.set("order", config["CHANNEL_NAME"]);
         app.setLoginItemSettings({
             openAtLogin: true
         });
@@ -143,7 +143,7 @@ app.on("activate", () => {
 
 ipcMain.on("getIsedolInfo", async (evt) => {
     const info = [];
-    const res = await apiClient.users.getUsersByNames(channel_name);
+    const res = await apiClient.users.getUsersByNames(config["CHANNEL_NAME"]);
     for (const i of res) {
         const follows = await apiClient.users.getFollows({ followedUser: i.id, limit: 1 });
         const isStream = await apiClient.streams.getStreamByUserId(i.id);
