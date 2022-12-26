@@ -1,5 +1,5 @@
 {
-  "name": "isekaidol_twitch_pip",
+  "name": "isekai_pip",
   "version": "0.2.3",
   "description": "",
   "main": "app.js",
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/kewool/Isekaidol_twitch_pip.git"
+    "url": "https://github.com/kewool/IsekaiPiP.git"
   },
   "author": "kewool",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/kewool/Isekaidol_twitch_pip/issues"
+    "url": "https://github.com/kewool/IsekaiPiP/issues"
   },
-  "homepage": "https://github.com/kewool/Isekaidol_twitch_pip#readme",
+  "homepage": "https://github.com/kewool/IsekaiPiP#readme",
   "dependencies": {
     "@twurple/api": "^5.0.19",
     "@twurple/auth": "^5.0.19",
@@ -40,23 +40,23 @@
       {
         "provider": "github",
         "owner": "kewool",
-        "repo": "Isekaidol_twitch_pip"
+        "repo": "IsekaiPiP"
       }
     ],
-    "productName": "Isekaidol Twitch PIP",
-    "appId": "com.electron.IsekaidolPIP",
+    "productName": "IsekaiPiP",
+    "appId": "com.electron.IsekaiPIP",
     "asar": true,
     "protocols": {
-      "name": "Isekaidol Twitch PIP",
+      "name": "IsekaiPiP",
       "schemes": [
-        "Isekaidol Twitch PIP"
+        "IsekaiPiP"
       ]
     },
     "win": {
       "target": [
         "nsis"
       ],
-      "icon": "/src/assets/icon2.jpg"
+      "icon": "/src/assets/icon3.png"
     },
     "mac": {
       "target": [
@@ -65,13 +65,13 @@
       "icon": "./src/assets/icon2.icns"
     },
     "dmg": {
-      "title": "Isekaidol Twitch PIP",
+      "title": "IsekaiPiP",
       "icon": "./src/assets/icon2.icns"
     },
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
-      "shortcutName": "이세계아이돌 트위치 PIP",
+      "shortcutName": "이세계PiP",
       "deleteAppDataOnUninstall": true,
       "perMachine": true
     },
