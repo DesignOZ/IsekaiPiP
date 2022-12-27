@@ -65,7 +65,7 @@ function createBackground() {
 }
 
 function createPIPWin(url, name) {
-    PIPWin.name = new BrowserWindow({
+    PIPWin[name] = new BrowserWindow({
         width: 480,
         height: 270,
         webPreferences: {
@@ -78,20 +78,20 @@ function createPIPWin(url, name) {
         x: 1390,
         y: 710,
     });
-    PIPWin.setMenu(null);
-    PIPWin.loadURL("file://" + path.join(page_dir, `pages/pip/index.html?url=${url}&name=${name}`));
-    PIPWin.setAlwaysOnTop(true, "screen-saver");
-    PIPWin.setVisibleOnAllWorkspaces(true);
+    PIPWin[name].setMenu(null);
+    PIPWin[name].loadURL("file://" + path.join(page_dir, `pages/pip/index.html?url=${url}&name=${name}`));
+    PIPWin[name].setAlwaysOnTop(true, "screen-saver");
+    PIPWin[name].setVisibleOnAllWorkspaces(true);
 
     createPointsWin(name);
 }
 
 function createPointsWin(name){
-    pointsWin.name = new BrowserWindow({
+    pointsWin[name] = new BrowserWindow({
         show: false,
     });
-    pointsWin.loadURL("https://twitch.tv/" + name);
-    pointsWin.webContents.setAudioMuted(true);
+    pointsWin[name].loadURL("https://twitch.tv/" + name);
+    pointsWin[name].webContents.setAudioMuted(true);
 }
 
 if(!lock){
@@ -122,7 +122,7 @@ app.on("ready", async () => {
         if (!mainWin) createMainWindow();
     });
 
-    //store.store.delete("order");
+    store.store.delete("order"); //test
     if (!store.store.get("order")){
         store.store.set("order", config["CHANNEL_NAME"]);
         app.setLoginItemSettings({
@@ -172,6 +172,7 @@ ipcMain.on("getOnePickStream", async (evt) => {
 ipcMain.on("openSelectPIP", async (evt, arg) => {
     const isStream = await apiClient.streams.getStreamByUserName(arg) ? true : false;
     if(isStream){
+        if (arg === store.store.get("order")[0]) backWin.webContents.send("getOnePickStream_reply");
         await twitch.getStream(arg).then((res) => {
             createPIPWin(res[ 1 ].url, arg);
         });
@@ -179,12 +180,12 @@ ipcMain.on("openSelectPIP", async (evt, arg) => {
 });
 
 ipcMain.on("closePIP", (evt, arg) => {
-    if(arg === store.store.get("order"))
+    if(arg === store.store.get("order")[0])
         backWin.webContents.send("PIPClose");
-    PIPWin.arg.close();
-    pointsWin.arg.close();
-    PIPWin.arg = null;
-    pointsWin.arg = null;
+    PIPWin[arg].close();
+    pointsWin[arg].close();
+    PIPWin[arg] = null;
+    pointsWin[arg] = null;
 });
 
 ipcMain.on("isStreamOff", async (evt) => {
@@ -196,10 +197,10 @@ ipcMain.on("isStreamOffWhileOn", async (evt, arg) => {
     const isStream = await apiClient.streams.getStreamByUserName(arg) ? true : false;
     if (!isStream) {
         backWin.webContents.send("isStreamOff_reply");
-        PIPWin.arg.close();
-        pointsWin.arg.close();
-        PIPWin.arg = null;
-        pointsWin.arg = null;
+        PIPWin[arg].close();
+        pointsWin[arg].close();
+        PIPWin[arg] = null;
+        pointsWin[arg] = null;
     }
 });
 

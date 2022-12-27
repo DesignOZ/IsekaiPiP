@@ -27,5 +27,3 @@ ipcRenderer.on("isStreamOff_reply", () => {
         if(login) ipcRenderer.send("getOnePickStream");
     }, 30000);
 });
-
-ipcRenderer.send("openPIPWithAppOpen");
