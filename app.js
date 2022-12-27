@@ -39,7 +39,7 @@ function createMainWindow() {
         icon: path.join(page_dir, "assets/icon.png"),
         resizable: false,
     });
-    //mainWin.setMenu(null);
+    mainWin.setMenu(null);
     mainWin.loadFile(path.join(page_dir, "pages/main/index.html"));
     // mainWin.webContents.openDevTools()
     autoUpdater.checkForUpdates();
@@ -80,7 +80,7 @@ function createPIPWin(url, name) {
         y: 710,
     });
     PIPWin[name].setAspectRatio(16 / 9);
-    //PIPWin[name].setMenu(null);
+    PIPWin[name].setMenu(null);
     PIPWin[name].loadURL("file://" + path.join(page_dir, `pages/pip/index.html?url=${url}&name=${name}`));
     PIPWin[name].setAlwaysOnTop(true, "screen-saver");
     PIPWin[name].setVisibleOnAllWorkspaces(true);
