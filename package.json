@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "electron .",
-    "build": "electron-builder --windows nsis:x64 -p always",
-    "buildmac": "electron-builder build --mac"
+    "build:win": "electron-builder --windows nsis:x64 -p always",
+    "build:mac": "electron-builder build --mac"
   },
   "repository": {
     "type": "git",
