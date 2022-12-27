@@ -124,7 +124,7 @@ app.on("ready", async () => {
         if (!mainWin) createMainWindow();
     });
 
-    store.store.delete("order"); //test
+    //store.store.delete("order"); //test
     if (!store.store.get("order")){
         store.store.set("order", config["CHANNEL_NAME"]);
         app.setLoginItemSettings({
