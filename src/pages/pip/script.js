@@ -14,15 +14,17 @@ function window_close() {
 }
 
 let video = document.createElement("video");
-video.width = 480;
-video.height = 270;
 let hls = new Hls();
 hls.loadSource(params.url);
 hls.attachMedia(video);
 hls.on(Hls.Events.MANIFEST_PARSED, ()=>{
     video.play();
 });
-docId("panel").prepend(video);
+docId("panel").append(video);
+
+document.getElementById("volume").addEventListener("change", (e)=>{
+    video.volume = e.target.value;
+});
 
 getStream = setInterval(()=>{
     ipcRenderer.send("isStreamOffWhileOn", params.name);

@@ -73,12 +73,14 @@ function createPIPWin(url, name) {
             nodeIntegration: true,
         },
         frame: false,
-        resizable: false,
+        resizable: true,
+        maximizable: false,
         skipTaskbar: true,
         x: 1390,
         y: 710,
     });
-    PIPWin[name].setMenu(null);
+    PIPWin[name].setAspectRatio(16 / 9);
+    //PIPWin[name].setMenu(null);
     PIPWin[name].loadURL("file://" + path.join(page_dir, `pages/pip/index.html?url=${url}&name=${name}`));
     PIPWin[name].setAlwaysOnTop(true, "screen-saver");
     PIPWin[name].setVisibleOnAllWorkspaces(true);
