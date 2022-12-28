@@ -61,11 +61,11 @@
       "target": [
         "default"
       ],
-      "icon": "./src/assets/icon2.icns"
+      "icon": "./src/assets/icon4.png"
     },
     "dmg": {
       "title": "IsekaiPiP",
-      "icon": "./src/assets/icon2.icns"
+      "icon": "./src/assets/icon4.png"
     },
     "nsis": {
       "oneClick": false,
